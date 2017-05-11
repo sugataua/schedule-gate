@@ -1,0 +1,128 @@
+<html>
+<head>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='style.css')}}">
+</head>
+<body>
+<div class="container">
+	
+	<div class="row">
+			<h1> Додати розклад</h1>
+			<div class="col-md-6">				
+				<div class="panel panel-default well">
+				<div class="panel-heading">
+				<h3>Вказати точку маршруту</h3>
+				</div>
+				
+				<form name="search" id='add-route-form-settlement-search' class="search-form settlement-search">
+					<input type="hidden" id="settlement-id" >
+					<input id="settlement-search" type="text"  class="form-control" size="35em" autocomplete="off" placeholder="Населений пункт" >
+					<div id="spec-block">						
+						<div id="livesearch" class="center-block"></div>	
+					</div>
+					<br>
+					<div class="center-block text-centered">
+					
+					<button id="add-route-button" class="btn btn-primary btn-lg">Add</button>
+					<button class="btn btn-primary btn-default">Add</button>
+					
+					</div>
+				</form>
+				
+			</div>
+			</div>
+			
+
+			<div class="col-md-4">	
+			<div class="panel panel-default well">
+				<div class="panel-heading">
+				<h3>Вказати розклад рейсів</h3>
+				</div>
+				<div class="panel-body">
+					<form class="form-inline" id="form-route-schedule">	
+					 <div class="form-group">
+						<label for="exampleInputName2">Відправлення</label>
+						<input id="route-departure-time" class="form-control ui-time-input" type="text" placeholder="--:--">
+					  </div>
+					  <br>
+						<div class="form-group">
+						<label for="exampleInputName2">Прибуття</label>			
+						<input id="route-arrival-time" class="form-control ui-time-input" type="text" placeholder="--:--">
+					  </div>
+					  <br>
+					  <input type="submit" class="btn btn-default btn-primary" value="Add">
+					 </form>
+				 </div>
+			 </div>
+			 </div>
+	</div>
+	<hr>
+	<div class="row">
+	<div class="col-md-4 col-md-offset-1">
+			<div class="panel panel-primary">
+			  <div class="panel-heading">
+				<h3 class="panel-title">Маршрут</h3>
+			  </div>
+			  <div class="panel-body">
+			<table id="routes-table" class="">
+				<thead id="routes-table-header"></thead>
+				<tbody id="routes-table-body"></tbody>				
+			</table>
+			  </div>
+			</div>
+			</div>
+
+			
+			<div class="col-md-4 col-md-offset-1">
+				<div class="panel panel-info">
+				  <div class="panel-heading">
+					<h3 class="panel-title">Відправлення рейсів</h3>
+				  </div>
+				  <div id="time-departure-list" class="panel-body">					
+				  </div>
+				</div>
+			</div>
+	</div>
+	
+	<div class="row">
+		<div class="col-md-4 col-md-offset-1">
+				<div class="panel panel-primary">
+				  <div class="panel-heading">
+					<h3 class="panel-title">Зворотній маршрут</h3>
+				  </div>
+				  <div class="panel-body">
+				<table id="routes-table" class="">
+					<thead id="routes-table-header"></thead>
+					<tbody id="routes-table-body"></tbody>				
+				</table>
+				  </div>
+				</div>
+				</div>
+
+				
+				<div class="col-md-4 col-md-offset-1">
+					<div class="panel panel-info">
+					  <div class="panel-heading">
+						<h3 class="panel-title">Зворотне відправлення рейсів</h3>
+					  </div>
+					  <div id="time-departure-list" class="panel-body">					
+					  </div>
+					</div>
+				</div>
+		</div>
+			
+			<div class="row">
+			<div class="col-md-2 col-md-offset-4 block-centered">
+			<button id="send-route-button" class="btn btn-lg btn-primary">Send</button>
+			<div>
+			</div>
+			
+			
+		</div>
+	</div>
+</div>
+<!-- onkeyup="showResult(this.value)" -->
+<script src={{url_for('static',filename='app.js')}}></script>
+</body>
+</html>

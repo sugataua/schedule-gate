@@ -1,0 +1,172 @@
+	.search-result {
+		padding: 1px 1px 1px 4px;
+		background-color: white;
+		
+	}
+	
+	/*.search-result:hover {*/
+		/*background-color: #E1F5FE;			*/
+	/*}*/
+
+ .centered-text {
+     text-align: center;
+ }
+    .search-result-selected {
+        background-color: #E1F5FE;
+    }
+	.livesearch-has-result{
+		display: block;
+		border: 1px solid #0288D1;
+		
+		position: relative;
+		z-index: 100;
+	}
+	
+	.settlement-search > p {
+		text-align: center;
+		margin-top: 20px;
+	}
+	
+	.search-form{
+		margin-top: 50px;
+		
+	}
+	
+	.settlement-name {
+		font-weight: bold;
+	}
+
+	#add-route-button{
+	display: none;
+	}
+	#send-route-button{
+	
+	}
+	
+	#spec-block {
+		position: absolute;		
+		width: 90%;
+	}
+	
+	
+	.center-block {
+	  display: block;
+	  margin-left: auto;
+	  margin-right: auto;
+	}
+	
+	.text-centered {
+		text-align: center;
+	}
+	
+	
+	#routes-table {
+		margin-top: 15px;
+	}
+	
+	#livesearch {
+		
+	}
+	
+	
+	.ui-time-input[type="text"] {
+		width: 70px;
+	}
+	
+	.error  input{
+		border: 1px solid red;
+	}
+	
+	
+	span.schedule-departure-time {
+		margin-left: 5px;
+		display: inline-block;
+		font-weight: 500;
+	}
+	
+	
+	.search-option {
+		display: inline-block;
+	}
+	
+	
+.gly-spin {
+  -webkit-animation: spin 2s infinite linear;
+  -moz-animation: spin 2s infinite linear;
+  -o-animation: spin 2s infinite linear;
+  animation: spin 2s infinite linear;
+}
+@-moz-keyframes spin {
+  0% {
+    -moz-transform: rotate(0deg);
+  }
+  100% {
+    -moz-transform: rotate(359deg);
+  }
+}
+@-webkit-keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(359deg);
+  }
+}
+@-o-keyframes spin {
+  0% {
+    -o-transform: rotate(0deg);
+  }
+  100% {
+    -o-transform: rotate(359deg);
+  }
+}
+@keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(359deg);
+    transform: rotate(359deg);
+  }
+}
+.gly-rotate-90 {
+  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=1);
+  -webkit-transform: rotate(90deg);
+  -moz-transform: rotate(90deg);
+  -ms-transform: rotate(90deg);
+  -o-transform: rotate(90deg);
+  transform: rotate(90deg);
+}
+.gly-rotate-180 {
+  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=2);
+  -webkit-transform: rotate(180deg);
+  -moz-transform: rotate(180deg);
+  -ms-transform: rotate(180deg);
+  -o-transform: rotate(180deg);
+  transform: rotate(180deg);
+}
+.gly-rotate-270 {
+  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+  -webkit-transform: rotate(270deg);
+  -moz-transform: rotate(270deg);
+  -ms-transform: rotate(270deg);
+  -o-transform: rotate(270deg);
+  transform: rotate(270deg);
+}
+.gly-flip-horizontal {
+  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=0, mirror=1);
+  -webkit-transform: scale(-1, 1);
+  -moz-transform: scale(-1, 1);
+  -ms-transform: scale(-1, 1);
+  -o-transform: scale(-1, 1);
+  transform: scale(-1, 1);
+}
+.gly-flip-vertical {
+  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=2, mirror=1);
+  -webkit-transform: scale(1, -1);
+  -moz-transform: scale(1, -1);
+  -ms-transform: scale(1, -1);
+  -o-transform: scale(1, -1);
+  transform: scale(1, -1);
+}

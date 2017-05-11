@@ -1,0 +1,23 @@
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='style.css')}}">
+</head>
+<body>
+
+<h1>Add route</h1>
+
+<form name="search" id='add-route-form-settlement-search'>
+<input id="settlement-search" type="text" size="30" autocomplete="off">
+<input id="settlement-id" type="hidden">
+<div id="livesearch"></div>
+<button id="add-route-button">Add</button>
+</form>
+
+<table id="routes-table">
+	
+</table>
+<button id="send-route-button">Send</button>
+<!-- onkeyup="showResult(this.value)" -->
+<script src={{url_for('static',filename='app.js')}}></script>
+</body>
+</html>
