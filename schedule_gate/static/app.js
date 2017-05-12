@@ -1,35 +1,37 @@
+var search_result;
+
 var input_from = document.getElementById("settlement-search-from");
 var input_to = document.getElementById("settlement-search-to");
 var search_form = document.getElementById('form-settlement-search');
 
 var from_feedback_icon = document.getElementById('settlement-search-from-feedback-icon');
 var to_feedback_icon = document.getElementById('settlement-search-to-feedback-icon');
+
 from_feedback_icon.style.display = 'none';
 to_feedback_icon.style.display = 'none';
 
 function getXMLHttpRequest() {
+	var xmlHttp;
 	if (window.XMLHttpRequest) {
 	// code for IE7+, Firefox, Chrome, Opera, Safari
-		xmlhttp=new XMLHttpRequest();
+		xmlHttp=new XMLHttpRequest();
 	} else {  // code for IE6, IE5
-		xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+		xmlHttp=new ActiveXObject("Microsoft.XMLHTTP");
 	}
-	return xmlhttp;
+	return xmlHttp;
 }
-
-var search_result;
-
 
 
 function addHighlightSearchResult(event){
-	var result_containter = this.parentElement;
-	var selected_list = result_containter.getElementsByClassName('search-result-selected')
+	var result_container = this.parentElement;
+	var selected_list = result_container.getElementsByClassName('search-result-selected');
 	for (var i=0; i<selected_list.length; i++) {
-		selected_list[i].classList.remove('search-result-selected')
+		selected_list[i].classList.remove('search-result-selected');
 	}
 	this.classList.add('search-result-selected');
 
 }
+
 
 function removeHighlightSearchResult(event){
 	this.classList.remove('search-result-selected');
@@ -151,7 +153,7 @@ function showSearchSuggestions() {
 		  settl_div.onmouseover = addHighlightSearchResult;
 		  settl_div.onmouseout = removeHighlightSearchResult;
 
-		  if (i == 0) {
+		  if (i === 0) {
 		  	settl_div.classList.add("search-result-selected");
 		  }
 		  var settl_name = document.createElement('span');
@@ -222,10 +224,6 @@ function openSearchPage(event) {
 		return;
 	}
 
-
-	 //alert(input_from._sttl_obj.koatuu);
-	 //alert(input_to._sttl_obj.koatuu);
-	 
 	 var url = 'http://bus.com.ua/cgi-bin/poshuk?fp=UA'+ input_from._sttl_obj.koatuu + '&tp=UA' + input_to._sttl_obj.koatuu +'&Go=3';
 	 window.open(url,'_blank');
 	 return;
@@ -234,9 +232,20 @@ function openSearchPage(event) {
 
 
 function handleKeyboardButtons(event) {
-	if (event.keyCode == 13) {
+	// Escape button
+	if (event.keyCode == 27) {
+		var livesearch_div_parent = this.parentNode;
 
-		if (this._sttl_obj == null) {
+		var result_of_livesearch = livesearch_div_parent.getElementsByClassName("livesearch");
+		// console.log(result_of_livesearch);
+		var livesearch_div = result_of_livesearch[0];
+
+		livesearch_div.style.display = 'none';
+	}
+	// Enter button
+	if (event.keyCode === 13) {
+
+		if (this._sttl_obj === null || this._sttl_obj === undefined) {
 			event.preventDefault();
 		}
 
@@ -253,6 +262,7 @@ function handleKeyboardButtons(event) {
 		}
 
 	}
+	// Tab button
 	if (event.keyCode == 9) {
 		var livesearch_div_parent = this.parentNode;
 
@@ -276,6 +286,7 @@ function handleKeyboardButtons(event) {
 
 
     }
+    // Up and Down arrows
 	if (event.keyCode == 38 || event.keyCode == 40) {
 		event.preventDefault();
 
@@ -327,7 +338,24 @@ function handleKeyboardButtons(event) {
 	}
 }
 
+// Hide search result list when click is made outside livesearch div
+function hideLiveSearch(event){
+	var lives_to = document.getElementById('livesearch-to');
+	var lives_from = document.getElementById('livesearch-from');
+	if (event.target != lives_to) {
+		lives_to.style.display = 'none';
+	}
+	if (event.target != lives_from) {
+		lives_from.style.display = 'none';
+	}
+}
 
+
+/*
+  Setting event handlers
+*/
+
+document.onclick = hideLiveSearch;
 
 input_from.oninput = showSearchSuggestions;
 input_to.oninput = showSearchSuggestions;

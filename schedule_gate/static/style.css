@@ -11,6 +11,10 @@
  .centered-text {
      text-align: center;
  }
+
+ .bg-warning{
+     padding: 15px;
+ }
     .search-result-selected {
         background-color: #E1F5FE;
     }
