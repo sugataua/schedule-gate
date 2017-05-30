@@ -18,6 +18,8 @@ var search_form = document.getElementById('form-settlement-search');
 var from_feedback_icon = document.getElementById('settlement-search-from-feedback-icon');
 var to_feedback_icon = document.getElementById('settlement-search-to-feedback-icon');
 
+var swap_button = document.getElementById('ui-settlements-swap-button');
+
 /*
 	Setting default state for input field icons
  */
@@ -38,9 +40,33 @@ function getXMLHttpRequest() {
 }
 
 // To display settlement names correctly
+function correctCityName(string) {
+	string = string.toLowerCase();
+	pieces = string.split('-');
+	new_string = '';
+	for(var i=0; i<pieces.length; i++){
+		pieces[i] = capitalizeFirstLetter(pieces[i]);
+	}
+	new_string = pieces.join('-');
+    return new_string;
+}
+
+
 function capitalizeFirstLetter(string) {
 	string = string.toLowerCase();
     return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+function checkHasSameName(results, name){
+	same_name_counter = 0;
+	
+	for(var i=0; i<results.length;i++) {
+		if (results[i].name == name){
+			same_name_counter++;
+		}
+	}
+	
+	return same_name_counter > 1;
 }
 
 // Add highlight on mouse hover
@@ -60,6 +86,17 @@ function removeHighlightSearchResult(event){
 	this.classList.remove('search-result-selected');
 }
 
+
+function turnOnFeedbackIcon(input) {
+	var feedback_icon = input.nextElementSibling.nextElementSibling;
+	feedback_icon.style.display = 'block';
+}
+
+function turnOffFeedbackIcon(input) {
+	var feedback_icon = input.nextElementSibling.nextElementSibling;
+	feedback_icon.style.display = 'none';
+}
+
 // Select settlement by click
 function selectSettlement() {
 	
@@ -70,7 +107,7 @@ function selectSettlement() {
 
 	settlement = search_results[this._ind];
 
-	input.value = capitalizeFirstLetter(settlement.name);
+	input.value = correctCityName(settlement.name);
 	input._sttl_obj = this._sttl_obj;
 
 	// Display successful selection on UI
@@ -90,7 +127,7 @@ function selectSettlementBySuggestion(result_div) {
 
 	settlement = search_results[result_div._ind];
 
-	input.value = capitalizeFirstLetter(settlement.name);
+	input.value = correctCityName(settlement.name);
 	input._sttl_obj = result_div._sttl_obj;
 
 	// Display successful selection on UI
@@ -144,6 +181,8 @@ function showSearchSuggestions() {
 	suggestion_loader_icon.classList.add('glyphicon');
 	suggestion_loader_icon.classList.add('glyphicon-refresh');
 	suggestion_loader_icon.classList.add('gly-spin');
+	suggestion_loader_icon.classList.add('glyphicon-test3');
+	
 	suggestion_loader.appendChild(suggestion_loader_icon);
 
 	// Add loader
@@ -175,22 +214,40 @@ function showSearchSuggestions() {
 			  }
 
 			  var settlement_name = document.createElement('span');
-			  settlement_name.innerHTML = capitalizeFirstLetter(search_results[i].name);
+			  settlement_name.innerHTML = correctCityName(search_results[i].name);
 			  settlement_name.classList.add("settlement-name");
+			  
+			  //console.log(checkHasSameName(search_results, search_results[i].name))
 
+			  district = "";
+			  region = "";
+			  if (checkHasSameName(search_results, search_results[i].name)) {
+				  district = correctCityName(search_results[i].district) + ", ";
+				  region = correctCityName(search_results[i].region);
+			  } 
+			  			  
+			  var settl_location = document.createElement('div');
+			  
 			  var settl_district = document.createElement('span');
-			  settl_district.innerHTML = search_results[i].district + " район, ";
+			  settl_district.innerHTML = district;
+			  settl_district.classList.add("settlement-district");
 
 			  var settl_region = document.createElement('span');
-			  settl_region.innerHTML = search_results[i].region + " область";
+			  settl_region.innerHTML = region;
+			  settl_region.classList.add("settlement-region");
 
 
 			  var br = document.createElement("br");
 
 			  settlement_div.appendChild(settlement_name);
-			  settlement_div.appendChild(br);
-			  settlement_div.appendChild(settl_district);
-			  settlement_div.appendChild(settl_region);
+			  settlement_div.appendChild(settl_location);
+			  
+			  
+				
+				settl_location.appendChild(settl_district);
+				settl_location.appendChild(settl_region);  
+			 
+			  
 
 			  settlement_div.onclick = selectSettlement;
 			  settlement_div._ind = i;
@@ -226,8 +283,9 @@ function showSearchSuggestions() {
 
 }
 
-
+// Check whether settlement is set
 function errorCheck(input) {
+	// Selecting settlement should attach _sttl_obj to input
 	if (input._sttl_obj === null || input._sttl_obj === undefined)  {
 		input.parentElement.classList.add("has-error");
 		return true;
@@ -235,9 +293,22 @@ function errorCheck(input) {
 	return false;
 }
 
+
+// Valid check
+function validCheck(input) {
+	// Selecting settlement should attach _sttl_obj to input
+	if (input._sttl_obj !== null && input._sttl_obj !== undefined)  {
+		input.parentElement.classList.add("has-success");
+		return true;
+	}
+	return false;
+}
+
+// Open prepared link in new tab
 function openSearchPage(event) {
 	event.preventDefault();
 
+	// Checking errors
 	var inputFromError = errorCheck(input_from);
 	var inputToError = errorCheck(input_to);
 
@@ -350,6 +421,39 @@ function hideSuggestionBox(event){
 	}
 }
 
+
+// Swap values in 'from' and 'to' input fields
+function swapSettlements(event){
+	event.preventDefault();
+		
+	var swap_name = input_from.value;
+	var swap_object = input_from._sttl_obj;
+	
+	input_from.value = input_to.value;
+	input_from._sttl_obj = input_to._sttl_obj;
+	
+	input_to.value = swap_name;
+	input_to._sttl_obj = swap_object;
+	
+	input_from.parentElement.classList.remove("has-error");
+	input_from.parentElement.classList.remove('has-success');
+	input_to.parentElement.classList.remove("has-error");
+	input_to.parentElement.classList.remove('has-success');
+	
+	turnOffFeedbackIcon(input_to);
+	turnOffFeedbackIcon(input_from);
+	
+	
+	if (validCheck(input_to)) {
+		turnOnFeedbackIcon(input_to);
+	}
+	
+	if (validCheck(input_from)) {
+		turnOnFeedbackIcon(input_from);
+	}
+		
+}
+
 /*
   Setting event handlers
 */
@@ -363,6 +467,7 @@ input_to.onkeydown = handleKeyboardButtons;
 
 search_form.onsubmit = openSearchPage;
 
+swap_button.onclick = swapSettlements;
 
 
 

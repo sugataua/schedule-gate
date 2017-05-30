@@ -37,9 +37,23 @@
 	}
 	
 	.settlement-name {
-		font-weight: bold;
+		font-weight: 500;
+		font-size: 19px;
+	}
+	
+	.settlement-district, .settlement-region {
+		font-weight: 500;
+		font-size: 14px;
+		color: #808080;		
 	}
 
+		
+	
+	.glyphicon-test3 {
+	  margin-right: 5px!important;
+	  
+}
+	
 	#add-route-button{
 	display: none;
 	}
@@ -49,7 +63,7 @@
 	
 	#spec-block {
 		position: absolute;		
-		width: 90%;
+		width: 100%;
 	}
 	
 	

@@ -33,5 +33,5 @@ class SettlementSearch(Resource):
             sttl_d = dict(s.__dict__)
             sttl_d.pop('_sa_instance_state', None)
             resp.append(sttl_d)
-        
+                
         return resp
