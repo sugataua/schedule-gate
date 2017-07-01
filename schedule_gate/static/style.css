@@ -35,7 +35,11 @@
 		margin-top: 50px;
 		
 	}
-	
+
+#search-submit-button{
+	margin-left: 10px;
+	vertical-align: middle;
+}
 	.settlement-name {
 		font-weight: 500;
 		font-size: 19px;
@@ -53,7 +57,12 @@
 	  margin-right: 5px!important;
 	  
 }
-	
+
+.ui-swap-button{
+	display: inline-block;
+	margin: 0 5px 0 5px;
+}
+
 	#add-route-button{
 	display: none;
 	}
@@ -61,7 +70,7 @@
 	
 	}
 	
-	#spec-block {
+	.spec-block {
 		position: absolute;		
 		width: 100%;
 	}
@@ -106,6 +115,7 @@
 	.search-option {
 		display: inline-block;
 	}
+
 	
 	
 .gly-spin {
@@ -148,6 +158,13 @@
     transform: rotate(359deg);
   }
 }
+
+
+.success-div {
+	background-color: green;
+	height: 10px;
+}
+
 .gly-rotate-90 {
   filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=1);
   -webkit-transform: rotate(90deg);

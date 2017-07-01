@@ -11,53 +11,66 @@
 <div class="container">
 	
 	<div class="row">
-			<div class="col-md-4 col-md-offset-4">
-			<h1> Карпатські розклади</h1>
-                <h3> Зручніший пошук для <a href="http://bus.com.ua/">bus.com.ua</a></h3>
-			<form name="search" id="form-settlement-search" class="search-form settlement-search">
+			<div class="col-md-10 col-md-offset-2">
+			<h1> Карпатські розклади
+                <small> Зручніший пошук для <a href="http://bus.com.ua/">bus.com.ua</a></small>
+			</h1>
+			<form name="search" id="form-settlement-search" class="search-form settlement-search form-inline">
 				<input type="hidden" id="settlement-id" >
 				<div class="form-group has-feedback">
 					<input id="settlement-search-from" type="text"  class="form-control" size="35em" autocomplete="off" placeholder="Звідки" >
 
 
 
-					<div id="spec-block">
+					<div class="spec-block">
 
 						<div id="livesearch-from" class="center-block livesearch"></div>	
 					</div>
+					
 
                     <div id="settlement-search-from-feedback-icon">
                         <span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
                         <span id="inputSuccess2Status" class="sr-only">(success)</span>
                     </div>
 				</div>
-				<div class="center-block centered-text">
-					<button id="ui-settlements-swap-button" class="btn btn-default">
-						<span class="glyphicon glyphicon-sort"></span>
+				<div class="centered-text ui-swap-button" >
+					<button title="Зворотній напрямок" id="ui-settlements-swap-button" class="btn btn-default">
+						<span class="glyphicon glyphicon-sort gly-rotate-90"></span>
 					</button>
+					
 				</div>
-				<br>
+				
 				<div class="form-group has-feedback">
 					<input id="settlement-search-to" type="text"  class="form-control" size="35em" autocomplete="off" placeholder="Куди" >
-					<div id="spec-block">					
+					
+					<div class="spec-block">					
 						<div id="livesearch-to" class="center-block livesearch"></div>	
 					</div>
+					
                     <div id="settlement-search-to-feedback-icon">
                         <span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
                         <span id="inputSuccess2Status" class="sr-only">(success)</span>
                     </div>
 				</div>
-				<br>
-				<div class="center-block text-centered">
 				
-				<input type="submit" value="Пошук розкладів" class="btn btn-primary btn-lg" >
+				<button type="submit" id="search-submit-button" class="btn btn-primary">Пошук на bus.com.ua</button>
 				
-				</div>
 			</form>
-                <p class="bg-success"><b>Примітка:</b> доступні <b>усі</b> населені пункти України</p>
+
+			<h2>
+				Розклади
+							
+			</h2>
 			
 
-			<table id="routes-table" class="table table-hover table-bordered">
+			<table id="ui-routes-table" class="table table-hover table-condensed">
+			
+			<!--
+			<caption>
+				 Напрямок <span title="Яремче, Івано-Франківська область">Яблуниця</span> - Івано-Франківськ</small>
+			</caption>
+			-->
+
 				
 			</table>
 		</div>
@@ -69,11 +82,13 @@
         <div class="col-md-4 col-md-offset-4">
             <div class="centered-text">
 			<a data-toggle="collapse" href="#collapseChangelog" aria-expanded="false" aria-controls="collapseChangelog">
-                v 0.1.4 <b>&beta;</b>				
+                v 0.1.5 <b>&beta;</b>				
 				</a>
             </div>
 			<div class="collapse" id="collapseChangelog">
 				<div class="well">
+	
+				<p>v 0.1.4</p>
 					<ul>
 						<li>Район і область вказуються, лише якщо є населені пункти з однаковими назвами</li>
 						<li>Виправлено коди для окремих населених пунктів</li>

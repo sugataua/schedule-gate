@@ -21,14 +21,15 @@ api = Api(app)
 
 
 from schedule_gate.resources.settlements import SettlementSingle, SettlementSearch
-#from schedule_gate.resources.routes import SingleRoute, ListRoute, RouteSearch
+from schedule_gate.resources.routes import SingleRoute, ListRoute, RouteSearch, RouteSearch2
 
 api.add_resource(SettlementSingle, '/<int:settl_id>')
 api.add_resource(SettlementSearch,'/search/<search_term>')
 
-# api.add_resource(singleroute,'/routes/<int:route_id>')
-# api.add_resource(listroute,'/routes')
-# api.add_resource(routesearch,'/routes/search/<int:settl_id>')
+api.add_resource(SingleRoute,'/routes/<int:route_id>')
+api.add_resource(ListRoute,'/routes')
+api.add_resource(RouteSearch,'/routes/search/<int:settl_id>')
+api.add_resource(RouteSearch2,'/routes/search2')
 
 
 
@@ -68,6 +69,6 @@ def initdb():
 def test():
     return render_template('main.html')
     
-# @app.route("/add")
-# def add_route():
-#     return render_template('add_route2.html')
+@app.route("/add")
+def add_route():
+    return render_template('add_route2.html')

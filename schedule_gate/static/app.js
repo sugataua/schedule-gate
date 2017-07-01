@@ -20,6 +20,8 @@ var to_feedback_icon = document.getElementById('settlement-search-to-feedback-ic
 
 var swap_button = document.getElementById('ui-settlements-swap-button');
 
+var routes_table = document.getElementById('ui-routes-table');
+
 /*
 	Setting default state for input field icons
  */
@@ -115,6 +117,12 @@ function selectSettlement() {
 	input.parentElement.classList.add('has-success');
 	suggestions_box.style.display = 'none';
 	feedback_icon.style.display = 'block';
+	
+	if (validCheck(input_to) && (validCheck(input_from))) {
+		console.log('Both selected')
+		twoSettlementsSelected();
+	}	
+	
 }
 
 // Select settlement by TAB and ENTER
@@ -451,7 +459,151 @@ function swapSettlements(event){
 	if (validCheck(input_from)) {
 		turnOnFeedbackIcon(input_from);
 	}
+	
+	if (validCheck(input_to) && (validCheck(input_from))) {
+		console.log('Both selected')
+		twoSettlementsSelected();
+	}
 		
+}
+
+
+function twoSettlementsSelected(){
+	var xmlHttp;
+	
+
+	xmlHttp = getXMLHttpRequest();
+
+	xmlHttp.onreadystatechange=function() {
+		// Results found
+		if (this.readyState === 4 && this.status === 200) {
+			
+
+		  routes_table.innerHTML = '';
+
+		  search_results = JSON.parse(this.responseText);
+		  
+		  for (var i=0; i<search_results.routes.length; i++) {
+			  console.log(search_results.routes[i])
+		  }
+		  
+		  
+		  var routes_table_caption = document.createElement('caption')
+		  routes_table_caption.innerHTML = 'Напрямок ' + input_from.value + " - " + input_to.value;
+		  routes_table.appendChild(routes_table_caption)
+		  
+		  
+		  var routes_table_head = document.createElement('thead')
+		  routes_table_head.innerHTML = '<tr><th>Час</th><th>Відправлення</th><th>Прибуття</th>' + '</tr>';
+		  routes_table.appendChild(routes_table_head)
+		  
+		  var routes_table_body = document.createElement('tbody')
+
+		  for (var i=0; i<search_results.routes.length; i++) {
+			  for (var j=0; j<search_results.routes[i].schedules.length; j++) {
+				  var routes_table_row = document.createElement('tr');
+				  routes_table_row.innerHTML = '<td>' + search_results.routes[i].schedules[j].departure_time + '</td><td>'
+				  + search_results.routes[i].path[0].name +  '</td><td>'
+				  + search_results.routes[i].path[search_results.routes[i].path.length - 1].name + '</td>'
+				  
+				  routes_table_body.appendChild(routes_table_row);
+			  }
+		  }		  
+		  
+		  routes_table.appendChild(routes_table_body)
+		  
+		  
+/*
+		  // Adding search results as suggestions to suggestion box
+		  for (var i=0; i<search_results.length; i++) {
+
+			  var settlement_div = document.createElement('div');
+			  settlement_div.className = "search-result";
+
+			  settlement_div.onmouseover = addHighlightSearchResult;
+			  settlement_div.onmouseout = removeHighlightSearchResult;
+
+			  // Select first result by default
+			  if (i === 0) {
+				settlement_div.classList.add("search-result-selected");
+			  }
+
+			  var settlement_name = document.createElement('span');
+			  settlement_name.innerHTML = correctCityName(search_results[i].name);
+			  settlement_name.classList.add("settlement-name");
+			  
+			  //console.log(checkHasSameName(search_results, search_results[i].name))
+
+			  district = "";
+			  region = "";
+			  if (checkHasSameName(search_results, search_results[i].name)) {
+				  district = correctCityName(search_results[i].district) + ", ";
+				  region = correctCityName(search_results[i].region);
+			  } 
+			  			  
+			  var settl_location = document.createElement('div');
+			  
+			  var settl_district = document.createElement('span');
+			  settl_district.innerHTML = district;
+			  settl_district.classList.add("settlement-district");
+
+			  var settl_region = document.createElement('span');
+			  settl_region.innerHTML = region;
+			  settl_region.classList.add("settlement-region");
+
+
+			  var br = document.createElement("br");
+
+			  settlement_div.appendChild(settlement_name);
+			  settlement_div.appendChild(settl_location);
+			  
+			  
+				
+				settl_location.appendChild(settl_district);
+				settl_location.appendChild(settl_region);  
+			 
+			  
+
+			  settlement_div.onclick = selectSettlement;
+			  settlement_div._ind = i;
+			  settlement_div._sttl_obj = search_results[i];
+
+			  suggestion_box.appendChild(settlement_div);
+			  
+			  */
+			  console.log('Ok');
+			  console.log(search_results);
+		  }
+		}
+
+		if (this.readyState === 4 && this.status === 404) {
+/*
+			// Clear suggestion box
+			suggestion_box.innerHTML = '';
+
+			// Create new div for message
+			var settlement_div_no_result = document.createElement('div');
+			settlement_div_no_result.className = "search-result";
+
+			// Create "No result" message
+			var settl_name_nr = document.createElement('span');
+			settl_name_nr.innerHTML = "Не знайдено!";
+			settl_name_nr.classList.add("settlement-name");
+			settlement_div_no_result.appendChild(settl_name_nr);
+
+			// Add message to suggestion box
+			suggestion_box.appendChild(settlement_div_no_result);
+		}
+		
+*/
+
+	console.log('404');
+	
+  };
+
+	xmlHttp.open("GET", "/routes/search2?fcode=" + input_from._sttl_obj.koatuu + '&tcode=' + input_to._sttl_obj.koatuu, true);
+	xmlHttp.send();
+
 }
 
 /*
